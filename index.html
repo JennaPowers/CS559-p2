@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Space Scene</title>
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body>
+    <canvas id="stars" width="800" height="800"></canvas>
+    <canvas id="space" width="800" height="800"></canvas>
+    <script src="spaceship.js"></script>
+    <script src="Star.js"></script>
+    <script>
+        function App() {
+          var canvas;
+          var context;
+          var canvas2;
+          var context2;
+
+          var spaceships = [];
+          var stars = [];
+
+          // this function repeatedly calls itself to draw and animate both canvases
+          function draw() {
+              context.clearRect(0, 0, canvas.width, canvas.height);
+              context2.clearRect(0, 0, canvas2.width, canvas2.height);
+              stars.forEach(star => star.draw());
+              context.save();
+              spaceships.forEach(ship => ship.update());
+              spaceships.forEach(ship => ship.draw());
+              context.restore();
+
+              window.requestAnimationFrame(draw);
+          }
+
+          // first canvas
+          canvas = document.getElementById('space');
+          context = canvas.getContext('2d');
+
+          // second canvas
+          canvas2 = document.getElementById('stars');
+          context2 = canvas.getContext('2d');
+
+          // spaceship and star objects
+          var spaceship1 = new Spaceship(context, 300, 600);
+          var star1 = new Star(context2,600,50,10,6,2,"#ffe38f");
+          var star2 = new Star(context2,300,150,10,5,2,"#f8ff96");
+          var star3 = new Star(context2,100,100,10,7,2,"#ffeade");
+          var star4 = new Star(context2,400,500,10,6,2,"#f8ff96");
+          var star5 = new Star(context2,350,300,10,6,2,"#fcb890");
+          var star6 = new Star(context2,200,400,10,7,2,"#ffeade");
+          var star7 = new Star(context2,50,700,10,6,2,"#ffe38f");
+          var star8 = new Star(context2,600,600,10,5,2,"#f2c688");
+          var star9 = new Star(context2,650,250,10,5,2,"#f2c688");
+          var star10 = new Star(context2,0,0,1,1,1);
+
+          spaceships.push(spaceship1);
+          stars.push(star1);
+          stars.push(star2);
+          stars.push(star3);
+          stars.push(star4);
+          stars.push(star5);
+          stars.push(star6);
+          stars.push(star7);
+          stars.push(star8);
+          stars.push(star9);
+          stars.push(star10);
+
+          draw();     
+          } 
+
+      window.onload = App;
+    </script>
+  </body>
+</html>
